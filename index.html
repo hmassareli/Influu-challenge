@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <title>Document</title>
+    
+</head>
+<body>
+    
+    <main>
+        <div x-data="{ tab: window.location.hash ? window.location.hash.substring(1) : 'home' }" id="tab_wrapper">
+            <!-- The tabs navigation -->
+            <nav>  
+                <img src="images/logo.png" alt="" srcset="">
+                <ul>
+                    <li><a :class="{ 'active': tab === 'description' }" @click.prevent="tab = 'home'; window.location.hash = 'home'" href="#">Home</a></li>
+                    <li><a :class="{ 'active': tab === 'reviews' }" @click.prevent="tab = 'texto'; window.location.hash = 'texto'" href="#">Texto</a></li>
+                    <li><a :class="{ 'active': tab === 'reviews' }" @click.prevent="tab = 'cep'; window.location.hash = 'cep'" href="#">CEP</a></li>
+                </ul>
+                
+                
+                
+            </nav>
+            
+            <!-- The tabs content -->
+            <div id = "home" x-show="tab === 'home'">
+                <div id = "titulo">
+                    <h1 class="homeh1"> Seja bem-vindo!</h1>
+                    <p>Selecione um teste abaixo</p>
+                    <div class = "divider"></div>
+                </div>
+                <div id="buttons">
+                    <button id="btntexto" :class="{ 'active': tab === 'reviews' }" @click.prevent="tab = 'texto'; window.location.hash = 'texto'" href="#">
+                        Texto
+                    </button>
+                    <button id="btncep" :class="{ 'active': tab === 'reviews' }" @click.prevent="tab = 'cep'; window.location.hash = 'cep'" href="#"></button>
+                </div>
+            </div>
+            <div x-show="tab === 'texto'">
+              ASDASD texto
+             </div>
+            <div x-show="tab === 'cep'">
+                CEP
+            </div>
+          </div>
+    </main>
+    
+</body>
+</html>
