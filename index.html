@@ -15,7 +15,7 @@
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
       defer
     ></script>
-    <script src="/node_modules/stress-pt/SplitSyllables.js"></script>
+    <script src="/modules/stress-pt/SplitSyllables.js"></script>
     <title>Document</title>
   </head>
   <body>
@@ -102,16 +102,22 @@
               Processar
             </button>
           </div>
-          <div id="lista-silabas"><ol>
-            <template x-for="palavra in resultado">
+          <div id="lista-silabas">
+            <div id="titulos">
+              <h2>Resultado</h2>
+              <h3>Total: <span x-text=resultado.length></span></h3>
+            </div>
+            <div class="divider"></div>
+
+            <ol>
+              <template x-for="palavra in resultado">
                 <li class="item" x-text="palavra"></li>
-            </template>
-        </ol></div>
-          
+              </template>
+            </ol>
+          </div>
         </div>
-        
-        <div x-show="tab === 'cep'">CEP </div>
-        
+
+        <div x-show="tab === 'cep'">CEP</div>
       </div>
     </main>
   </body>
@@ -176,8 +182,7 @@ câmaras a bordo escolheram autonomamente um local para aterrar.`;
         new Set(palavrasTrissilabas)
       );
 
-      return palavrasTrissilabasSemRepeticao
-        .sort((a, b) => a.localeCompare(b));
+      return palavrasTrissilabasSemRepeticao.sort((a, b) => a.localeCompare(b));
     }
   </script>
 </html>
