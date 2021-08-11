@@ -254,7 +254,8 @@ textarea:focus {
 .erro{
     background-color: crimson;
     color:white;
-    padding:5px;
+    padding:10px 10px;
     display: flex;
     align-items: center;
+    border-radius:4px;
 }
