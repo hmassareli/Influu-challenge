@@ -9,8 +9,8 @@ body{
     background: url('images/background.png'), linear-gradient(180deg, #6C1B62 0%, rgba(110, 28, 99, 0.969101) 33.01%, rgba(145, 60, 133, 0) 100%),#6C327E ;
     
     
-    background-size:     cover;                      /* <------ */
-    background-repeat:   no-repeat;
+    background-size:cover;                      /* <------ */
+    background-repeat:no-repeat;
     background-position: bottom;
     
 }
@@ -178,4 +178,17 @@ textarea:focus {
 }
 #mainTextos button:hover{
     background: #df1f7c;
+}
+#textos .item{
+    color:white;
+    text-transform: capitalize;
+}
+#textos #lista-silabas ol{
+    display:grid;
+    max-width: 100%;
+    grid-auto-flow:column;
+    grid-template-rows: repeat(10,1fr);
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    
+    grid-auto-columns: 1fr;
 }

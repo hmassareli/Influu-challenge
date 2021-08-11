@@ -1,71 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+      defer
+    ></script>
+    <script src="/node_modules/stress-pt/SplitSyllables.js"></script>
     <title>Document</title>
-    
-</head>
-<body>
-    
+  </head>
+  <body>
     <main>
-        <div x-data="{ tab: window.location.hash ? window.location.hash.substring(1) : 'home', result: false, content:''}" id="tab_wrapper">
-            <!-- The tabs navigation -->
-            <nav>  
-                <img src="images/logo.png" alt="" srcset="">
-                <ul>
-                    <li><a :class="{ 'active': tab === 'description'}" @click.prevent="tab = 'home'; window.location.hash = 'home'" href="#">Home</a></li>
-                    <li><a :class="{ 'active': tab === 'reviews' }" @click.prevent="tab = 'texto'; window.location.hash = 'texto'" href="#">Texto</a></li>
-                    <li><a :class="{ 'active': tab === 'reviews' }" @click.prevent="tab = 'cep'; window.location.hash = 'cep'" href="#">CEP</a></li>
-                </ul>
-                
-                
-                
-            </nav>
-            
-            <!-- The tabs content -->
-            <div id = "home" x-show="tab === 'home'">
-                <div id = "titulohome">
-                    <h1 class="homeh1"> Seja bem-vindo!</h1>
-                    <p>Selecione um teste abaixo</p>
-                    <div class = "divider"></div>
-                </div>
-                <div id="buttons">
-                    <button :class="{ 'active': tab === 'reviews' }" @click.prevent="tab = 'texto'; window.location.hash = 'texto'" href="#">
-                        Texto
-                    </button>
-                    <button :class="{ 'active': tab === 'reviews' }" @click.prevent="tab = 'cep'; window.location.hash = 'cep'" href="#">CEP</button>
-                </div>
-            </div>
-            <div id="textos" x-show="tab === 'texto'">
-                <div id="tituloTexto">
-                    <h1>Busca por textos</h1>
-                    <p>Filtre o texto abaixo capturando somente as palavras trissilabas.</p>
-                    <div class = "divider"></div>
-                </div>
-                <div id="mainTextos">
-                    <textarea  x-model="content" id="textarea-textos" name="text" id="" cols="80" rows="100">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      <div
+        x-data="{ encontrarTrissilabas, tab: window.location.hash ? window.location.hash.substring(1) : 'home', result: false, content:conteudo, resultado:[]}"
+        id="tab_wrapper"
+      >
+        <!-- The tabs navigation -->
+        <nav>
+          <img src="images/logo.png" alt="" srcset="" />
+          <ul>
+            <li>
+              <a
+                :class="{ 'active': tab === 'description'}"
+                @click.prevent="tab = 'home'; window.location.hash = 'home'"
+                href="#"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                :class="{ 'active': tab === 'reviews' }"
+                @click.prevent="tab = 'texto'; window.location.hash = 'texto'"
+                href="#"
+                >Texto</a
+              >
+            </li>
+            <li>
+              <a
+                :class="{ 'active': tab === 'reviews' }"
+                @click.prevent="tab = 'cep'; window.location.hash = 'cep'"
+                href="#"
+                >CEP</a
+              >
+            </li>
+          </ul>
+        </nav>
 
-                        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                        
-                        The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</textarea>
-                    <button @click.prevent="content.length > 2 ? result = true : result = false">Processar</button>
-                </div>
-             </div>
-            <div x-show="tab === 'cep'">
-                CEP
-            </div>
-            <div x-show="result">
-                OIEEEE
-            </div>
+        <!-- The tabs content -->
+        <div id="home" x-show="tab === 'home'">
+          <div id="titulohome">
+            <h1 class="homeh1">Seja bem-vindo!</h1>
+            <p>Selecione um teste abaixo</p>
+            <div class="divider"></div>
           </div>
+          <div id="buttons">
+            <button
+              :class="{ 'active': tab === 'reviews' }"
+              @click.prevent="tab = 'texto'; window.location.hash = 'texto'"
+              href="#"
+            >
+              Texto
+            </button>
+            <button
+              :class="{ 'active': tab === 'reviews' }"
+              @click.prevent="tab = 'cep'; window.location.hash = 'cep'"
+              href="#"
+            >
+              CEP
+            </button>
+          </div>
+        </div>
+        <div id="textos" x-show="tab === 'texto'">
+          <div id="tituloTexto">
+            <h1>Busca por textos</h1>
+            <p>
+              Filtre o texto abaixo capturando somente as palavras trissilabas.
+            </p>
+            <div class="divider"></div>
+          </div>
+          <div id="mainTextos">
+            <textarea
+              x-model="content"
+              id="textarea-textos"
+              name="text"
+              id=""
+              cols="80"
+              rows="100"
+            ></textarea>
+            <button
+              @click="content.length > 1  ? result = true : result = false; resultado = encontrarTrissilabas(content)"
+            >
+              Processar
+            </button>
+          </div>
+          <div id="lista-silabas"><ol>
+            <template x-for="palavra in resultado">
+                <li class="item" x-text="palavra"></li>
+            </template>
+        </ol></div>
+          
+        </div>
+        
+        <div x-show="tab === 'cep'">CEP </div>
+        
+      </div>
     </main>
-    
-</body>
+  </body>
+
+  <script>
+    let conteudo = `O programa espacial da China deu um enorme salto ao colocar com sucesso a
+sonda Zhurong em Marte, assinalando a primeira aterragem da China noutro
+planeta. As equipas estão agora a preparar-se para tirar a sonda da sua plataforma
+de aterragem para iniciar uma missão que visa procurar evidências de água e
+indícios de vida passada.
+Esta aterragem torna a China no segundo país da história a colocar uma sonda na
+superfície de Marte. Depois de meses a orbitar o planeta vermelho, a nave Tianwen1 lançou a sonda Zhurong para aterrar em Utopia Planitia, uma vasta planície que
+pode ter estado coberta por um antigo oceano marciano. A sonda de 240 quilos
+sobreviveu a uma perigosa descida até à superfície, incluindo a entrada atmosférica,
+desacelerar de velocidades supersónicas com um paraquedas e, por fim, usar
+foguetões para pousar com segurança no solo.
+Batizada em homenagem ao antigo deus chinês do fogo, a sonda Zhurong é
+semelhante em tamanho às sondas Spirit e Opportunity da NASA, que aterraram no
+planeta vermelho em 2004 e enviaram imagens e dados emocionantes sobre as
+condições da superfície do planeta. A sonda chinesa pode fazer descobertas
+adicionais importantes sobre a água e a habitabilidade do planeta no passado,
+abrindo caminho para futuras missões humanas a Marte.
+“Aterrar com segurança em Marte é um enorme desafio, sobretudo para a primeira
+tentativa de aterragem suave da China”, diz Long Xiao, cientista planetário da
+Universidade de Geociências da China. “Mas é um passo necessário para a
+exploração de Marte e do espaço profundo.”
+Descer com sucesso até à superfície de Marte é um desafio extraordinário. Até
+agora, só a NASA é que tinha aterrado e operado naves com segurança na superfície
+marciana; em 1971, a sonda soviética Mars 3 transmitiu metade de uma fotografia,
+antes de ficar em silêncio depois de uma missão que durou apenas 100 segundos.
+Ao aterrar e explorar Marte, a China ganha vantagem sobre uma série de pares na
+exploração espacial.
+A sonda Zhurong conseguiu sobreviver aos chamados “sete minutos de terror”, o
+tempo desde a entrada na atmosfera até à aterragem na superfície. A Administração
+Espacial Nacional da China (CNSA) limitou-se observar a aterragem autónoma a
+quase 320 milhões de quilómetros de distância – tão longe que demora 18 minutos
+a receber um sinal de Marte – e esperar que corresse tudo conforme planeado.
+A Zhurong estava acoplada ao seu companheiro orbital, envolta numa cobertura
+que foi projetada para proteger o veículo no seu trajeto através da atmosfera
+marciana. Depois de libertada e de passar por uma entrada atmosférica abrasadora,
+foi ativado um enorme paraquedas para abrandar ainda mais a descida da sonda.
+Depois, a plataforma de aterragem que segura a sonda acionou os foguetões do
+motor para fazer a aproximação final à superfície. Um localizador de alcance a laser
+e um scanner 3D forneceram os dados sobre a altitude e terreno enquanto as
+câmaras a bordo escolheram autonomamente um local para aterrar.`;
+
+    function encontrarTrissilabas(content = "") {
+      const reg = /([A-zÀ-ú]+)/g;
+      content = content.match(reg);
+      const palavrasTrissilabas = [];
+
+      let palavraBruta = stressed(content.join(" "));
+      palavraBruta.split(" ").forEach((palavra) => {
+        palavra = palavra.replaceAll(/(:)+/g, "");
+        let silabas = palavra.split("|");
+        if (silabas.length == 3) {
+          palavrasTrissilabas.push(silabas.join(""));
+        }
+      });
+
+      let palavrasTrissilabasSemRepeticao = Array.from(
+        new Set(palavrasTrissilabas)
+      );
+
+      return palavrasTrissilabasSemRepeticao
+        .sort((a, b) => a.localeCompare(b));
+    }
+  </script>
 </html>
