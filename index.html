@@ -16,6 +16,8 @@
       defer
     ></script>
     <script src="/modules/stress-pt/SplitSyllables.js"></script>
+    <script src="/modules/mascaracep.js"></script>
+    <script type='text/javascript' src='https://unpkg.com/@brazilian-utils/is-valid-cep/dist/index.umd.js'></script>
     <title>Document</title>
   </head>
   <body>
@@ -30,7 +32,7 @@
           <ul>
             <li>
               <a
-                :class="{ 'active': tab === 'description'}"
+                x-bind:class="{ 'active-link': tab === 'home' }"
                 @click.prevent="tab = 'home'; window.location.hash = 'home'"
                 href="#"
                 >Home</a
@@ -38,7 +40,7 @@
             </li>
             <li>
               <a
-                :class="{ 'active': tab === 'reviews' }"
+              x-bind:class="{ 'active-link': tab === 'texto' }"
                 @click.prevent="tab = 'texto'; window.location.hash = 'texto'"
                 href="#"
                 >Texto</a
@@ -46,7 +48,7 @@
             </li>
             <li>
               <a
-                :class="{ 'active': tab === 'reviews' }"
+              x-bind:class="{ 'active-link': tab === 'cep' }"
                 @click.prevent="tab = 'cep'; window.location.hash = 'cep'"
                 href="#"
                 >CEP</a
@@ -80,7 +82,7 @@
           </div>
         </div>
         <div id="textos" x-show="tab === 'texto'">
-          <div id="tituloTexto">
+          <div class="header">
             <h1>Busca por textos</h1>
             <p>
               Filtre o texto abaixo capturando somente as palavras trissilabas.
@@ -117,7 +119,37 @@
           </div>
         </div>
 
-        <div x-show="tab === 'cep'">CEP</div>
+        <div id="cep" x-show="tab === 'cep'">
+            <div class="header">
+                <h1>CEP</h1>
+                <p>
+                    Pesquise os campos abaixo atravéis do CEP informado.              
+                </p>
+                <div class="divider"></div>
+            </div>
+            <div class = "content" x-data="{processaCep, dados: {}, input:'', consulta:false}">
+                <div id="input">
+                    <input x-model="input" maxlength="9" type="text" onkeyup="fMasc( this, mCEP );"><button @click = "dados = await processaCep(input); consulta = true">Processar</button>
+                    
+                    <div class="erro" x-show="!dados.logradouro && consulta">Digite um CEP válido!</div>
+                </div>
+                <div id="dados-cep" x-show="dados.logradouro">
+                    <h2>Resultado</h2>
+                    <div class="divider"></div>
+                    <h3>Logradouro</h3>
+                    <p x-text="dados.logradouro"></p>
+                    <h3>Bairro</h3>
+                    <p x-text="dados.bairro"></p>
+                    <h3>Cidade</h3>
+                    <p x-text="dados.localidade"></p>
+                    <h3>Estado</h3>
+                    <p x-text="dados.uf"></p>
+                    <h3>IBGE</h3>
+                    <p x-text="dados.ibge"></p>
+                </div>
+
+            </div>
+        </div>
       </div>
     </main>
   </body>
@@ -183,6 +215,16 @@ câmaras a bordo escolheram autonomamente um local para aterrar.`;
       );
 
       return palavrasTrissilabasSemRepeticao.sort((a, b) => a.localeCompare(b));
+    }
+    async function processaCep(input){
+        input = input.split("-").join("");
+        let get = 'https://viacep.com.br/ws/' + input + '/json'
+        let response = await fetch(get)
+        console.log(get)
+        return await response.json();
+
+
+        
     }
   </script>
 </html>
